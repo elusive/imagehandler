@@ -1,0 +1,14 @@
+This is an ASP.NET project that consists of an httphandler for 
+processing images, and applying filters to them.  The filters
+are in the Imaging class library and are used by the ImageHandler
+http handler file.  
+
+You can request an image with a filter applied by passing the
+filter parameters in the url when you src the image.
+
+For example:
+	<img src="http://localhost:3000/images/mypic.jpg?contrast=90" />
+	
+== HISTORY
+0.1		This is initial version with only contrast filter and a test html page.
+		Range of contrast value is +/- 100.
