@@ -1,3 +1,22 @@
+
+
+body {
+	margin: 20px;
+	width: 650px;
+	font: 14px "Lucida Grande", arial;
+}
+
+.centered {
+	margin: 10px auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+fieldset {
+	margin: 10px;
+	padding: 10px;
+}
+
 .wp-caption { 
 	border: 1px solid #ccc; 
 	text-align: center; 

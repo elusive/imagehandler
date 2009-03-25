@@ -4,8 +4,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Test page for ImageHandler</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+    function HandleFilterClick(e) {
+        // collect value for filter from textbox
+        var value = $('#txtValue').val();    	
+        var img = $('#srcImage');        
+        if (parseInt(value)=="Nan") { 
+            return false;
+        }
+        else {
+            // build new image src value with qs
+            var imgName = img.attr('src').split('?')[0];
+            var newsrc = imgName + '?' + 'contrast=' + value;
+            console.log(newsrc);
+            // reset src attribute on the image
+            img.attr('src', newsrc);
+        }
+    }
+    
+    $(function() {
+    	$('#txtValue').focus();
+    	
+    	$('#apply-filter').click(HandleFilterClick);
+    	$('#reset-image').click(function(e){
+    		var img = $('#srcImage');
+    		img.attr('src', 'res/Kitten600.jpg');
+    	});
+    });
+    </script>
+    <link rel="stylesheet" href="res/style.css" type="text/css" media="screen" charset="utf-8"></link>
 </head>
 <body>
+
+<h1>ImageHandler Test:</h1>
+<p>This page should test the image handler httphandler on the server side.
+Enter a value for contrast in the textbox below and click submit, and then
+the image will be reloaded with the contrast value applied.</p>
+
+<div class="wp-caption aligncenter" style="width: 620px">	
+	<img id="srcImage" src="res/kitten600.jpg" alt="Kitten Image" />
+	<p class="wp-caption-text">
+		Picture of a kitten for contrast filter testing.</p>
+</div>
+<form>
+	<fieldset style="width: 350px;">
+		<legend>Contrast Filter</legend>
+		<label for="txtValue">Enter value for Contrast:</label>
+		<input type="text" id="txtValue" name="txtValue" /><br /><br />
+		<div class="centered">
+			<input type="button" value="Apply Filter" id="apply-filter" name="apply-filter" />&nbsp;
+			<input type="button" value="Reset Image" id="reset-image" name="reset-image" />
+		</div>
+	</fieldset>		
+</form>
 
 </body>
 </html>
