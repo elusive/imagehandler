@@ -24,7 +24,7 @@ namespace Imaging.Filters
             int red, green, blue;
 
             // GDI+ still lies to us - the return format is BGR, NOT RGB.
-            BitmapData bmData = image.LockBits(new Rectangle(0, 0, image.Width, image.Height), 
+            BitmapData bmData = _image.LockBits(new Rectangle(0, 0, _image.Width, _image.Height), 
                 ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
             int stride = bmData.Stride;
@@ -34,11 +34,11 @@ namespace Imaging.Filters
             {
                 byte* p = (byte*)(void*)Scan0;
 
-                int nOffset = stride - image.Width * 3;
+                int nOffset = stride - _image.Width * 3;
 
-                for (int y = 0; y < image.Height; ++y)
+                for (int y = 0; y < _image.Height; ++y)
                 {
-                    for (int x = 0; x < image.Width; ++x)
+                    for (int x = 0; x < _image.Width; ++x)
                     {
                         blue = p[0];
                         green = p[1];
@@ -77,7 +77,7 @@ namespace Imaging.Filters
                 }
             }
 
-            image.UnlockBits(bmData);
+            _image.UnlockBits(bmData);
 
             return true;
         }
