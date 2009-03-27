@@ -34,9 +34,12 @@ namespace ImageHandling
                 // need to get the filter name and value
                 foreach (var key in context.Request.QueryString.Keys)
                 {
-                    int val = Int32.Parse(context.Request[key.ToString()]);
-                    string filterName = key.ToString();
-                    this.ProcessFilter(filterName, val);
+                    int val;
+                    if (Int32.TryParse(context.Request[key.ToString()], out val))
+                    {
+                        string filterName = key.ToString();
+                        this.ProcessFilter(filterName, val);
+                    }
                 }
 
                 _bitmap.Save(context.Response.OutputStream, ImageFormat.Jpeg);

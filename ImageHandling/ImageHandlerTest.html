@@ -16,8 +16,7 @@
         else {
             // build new image src value with qs
             var imgName = img.attr('src').split('?')[0];
-            var newsrc = imgName + '?' + 'contrast=' + value;
-            console.log(newsrc);
+            var newsrc = imgName + '?' + 'contrast=' + value;            
             // reset src attribute on the image
             img.attr('src', newsrc);
         }
