@@ -1,8 +1,11 @@
-This is an ASP.NET project that consists of an httphandler for 
-processing images, and applying filters to them.  The filters
-are in the Imaging class library and are used by the ImageHandler
-http handler file.  
+== ImageHandler
 
+	This is an ASP.NET project that consists of an httphandler for 
+	processing images, and applying filters to them.  The filters
+	are in the Imaging class library and are used by the ImageHandler
+	http handler file.  
+
+== Usage 
 You can request an image with a filter applied by passing the
 filter parameters in the url when you src the image.
 
