@@ -6,11 +6,25 @@
 	http handler file.  
 
 == Usage 
-You can request an image with a filter applied by passing the
-filter parameters in the url when you src the image.
+	You can request an image with a filter applied by passing the
+	filter parameters in the url when you src the image.  You can use
+	javascript as you would normally to "re-src" the image.  This 
+	allows you to apply filters to the image in an "ajax" way w/o a
+	page refresh, but at the same time getting the benefit of consistent
+	performance because the server is applying the filter.
 
-For example:
-	<img src="http://localhost:3000/images/mypic.jpg?contrast=90" />
+	For example:
+		<img src="http://localhost:3000/images/mypic.jpg?contrast=90" />
+		
+		--or--
+		<script>
+			// use this code in response to a value being collected 
+			// from the user via a textbox or slider or similar
+			var s = document.forms[0].myTextbox.value;
+			s = '?contrast=' + s
+			document.images['myphoto'].src = 'mypic.jpg' + s;
+		</script>
+		
 	
 == HISTORY
 0.1		This is initial version with only contrast filter and a test html page.
