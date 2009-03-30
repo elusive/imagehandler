@@ -10,8 +10,10 @@ namespace Imaging.Filters
 
         #region IFilter Members
 
-        public unsafe bool Apply(Bitmap srcBitmap, sbyte value)
+        public unsafe bool Apply(Bitmap srcBitmap, double val)
         {
+            sbyte value = (sbyte)val;
+
             if (value < -100) return false;
             if (value > 100) return false;
 

@@ -5,3 +5,8 @@ obj/**/*
 *.sln
 Imaging/*.tmp
 *.tmp
+Imaging/*.sln
+Imaging/*.csproj
+Imaging/*.gpstate
+Imaging/*.user
+Imaging/_Resharper.Imaging/**/*

@@ -22,11 +22,28 @@
         }
     }
     
+    function HandleGammaClick(e) {
+        // collect value for filter from textbox
+        var value = $('#txtGamma').val();    	
+        var img = $('#srcImage');        
+        if (parseInt(value)=="Nan") { 
+            return false;
+        }
+        else {
+            // build new image src value with qs
+            var imgName = img.attr('src').split('?')[0];
+            var newsrc = imgName + '?' + 'gamma=' + value;            
+            // reset src attribute on the image
+            img.attr('src', newsrc);
+        }
+    }
+    
     $(function() {
     	$('#txtValue').focus();
     	
     	$('#apply-filter').click(HandleFilterClick);
-    	$('#reset-image').click(function(e){
+    	$('#apply-gamma').click(HandleGammaClick);
+    	$('.reset-image').click(function(e){
     		var img = $('#srcImage');
     		img.attr('src', 'res/Kitten600.jpg');
     	});
@@ -48,14 +65,23 @@ the image will be reloaded with the contrast value applied.</p>
 </div>
 <form>
 	<fieldset style="width: 350px;">
+		<legend>Gamma Filter</legend>
+		<label for="txtValue">Enter value for Gamma:</label>
+		<input type="text" id="txtGamma" name="txtGamma" /><br /><br />
+		<div class="centered">
+			<input type="button" value="Apply Filter" id="apply-gamma" name="apply-gamma" />&nbsp;
+			<input type="button" value="Reset Image" class="reset-image" name="reset-image" />
+		</div>
+	</fieldset>
+	<fieldset style="width: 350px;">
 		<legend>Contrast Filter</legend>
 		<label for="txtValue">Enter value for Contrast:</label>
 		<input type="text" id="txtValue" name="txtValue" /><br /><br />
 		<div class="centered">
 			<input type="button" value="Apply Filter" id="apply-filter" name="apply-filter" />&nbsp;
-			<input type="button" value="Reset Image" id="reset-image" name="reset-image" />
+			<input type="button" value="Reset Image" class="reset-image" name="reset-image2" />
 		</div>
-	</fieldset>		
+	</fieldset>				
 </form>
 
 </body>

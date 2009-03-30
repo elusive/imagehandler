@@ -24,7 +24,7 @@ namespace Imaging
         /// <param name="image">Source image to apply filter to.</param>
         /// <param name="value">Value used in applying filter.</param>
         /// <returns>Success indicator, true for success, else false.</returns>
-        bool Apply(Bitmap image, sbyte value);
+        bool Apply(Bitmap image, double value);
 
         /// <summary>
         /// Method to return the destination bitmap that contains
