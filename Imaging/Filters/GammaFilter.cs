@@ -16,16 +16,18 @@ namespace Imaging.Filters
 
         #region IFilter Members
 
-        public unsafe bool Apply(Bitmap srcBitmap, sbyte value)
+        public unsafe bool Apply(Bitmap srcBitmap, double value)
         {
         	// use same gamma value for r, g, & b
-        	double red = (double)value;
+        	double red = value;
             double green = red;
             double blue = green;
         	
             if (red < .2 || red > 5) return false;
 			if (green < .2 || green > 5) return false;
 			if (blue < .2 || blue > 5) return false;
+
+            _image = (Bitmap)srcBitmap.Clone();
 
 			byte [] redGamma = new byte [256];
 			byte [] greenGamma = new byte [256];

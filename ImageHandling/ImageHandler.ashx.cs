@@ -34,8 +34,8 @@ namespace ImageHandling
                 // need to get the filter name and value
                 foreach (var key in context.Request.QueryString.Keys)
                 {
-                    int val;
-                    if (Int32.TryParse(context.Request[key.ToString()], out val))
+                    double val;
+                    if (double.TryParse(context.Request[key.ToString()], out val))
                     {
                         string filterName = key.ToString();
                         this.ProcessFilter(filterName, val);
@@ -51,7 +51,7 @@ namespace ImageHandling
             }
         }
 
-        private void ProcessFilter(string filterName, int filterVal)
+        private void ProcessFilter(string filterName, double filterVal)
         {
             IFilter f;
 
@@ -59,7 +59,12 @@ namespace ImageHandling
             {
                 case "contrast":
                     f = new Imaging.Filters.ContrastFilter();
-                    if (f.Apply(_bitmap, (sbyte)filterVal))
+                    if (f.Apply(_bitmap, filterVal))
+                        _bitmap = f.GetResult();
+                    break;
+                case "gamma":
+                    f = new Imaging.Filters.GammaFilter();
+                    if (f.Apply(_bitmap, filterVal))
                         _bitmap = f.GetResult();
                     break;
                 default:
