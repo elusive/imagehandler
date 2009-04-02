@@ -34,3 +34,10 @@ fieldset {
 	font-size: 11px; line-height: 17px; 
 	padding: 0 4px 5px; margin: 0; 			
 }
+
+.slider {
+	width: 100px;
+	height: 3px;
+	background-color: #ccc;
+}
+

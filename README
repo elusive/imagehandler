@@ -31,3 +31,7 @@
 		Range of contrast value is +/- 100.
 0.2		Adding a gamma filter to the filters library, and update test page to
 		use it too.  Range for gamma value is 0.2 to 5.0.
+		Also converted IFilter interface Apply method to accept double instead
+		of sbyte as the filter value parameter on filter methods.
+0.3		Added slider controls [jquery] to control contrast and gamma filters on
+		the demo image/page.
