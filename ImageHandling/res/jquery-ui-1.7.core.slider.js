@@ -812,7 +812,7 @@ $.widget("ui.slider", $.extend({}, $.ui.mouse, {
 			normValue += this.options.step;
 
 		// Since JavaScript has problems with large floats, round
-		// the final value to 5 digits after the decimal point (see #4124)
+		// the final value to 5 digits after the decimal point (see #4124)	
 		return parseFloat(normValue.toFixed(5));
 
 	},

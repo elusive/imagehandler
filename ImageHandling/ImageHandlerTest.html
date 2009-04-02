@@ -5,50 +5,59 @@
 <head>
     <title>Test page for ImageHandler</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript">
-    function HandleFilterClick(e) {
-        // collect value for filter from textbox
-        var value = $('#txtValue').val();    	
-        var img = $('#srcImage');        
-        if (parseInt(value)=="Nan") { 
-            return false;
-        }
-        else {
-            // build new image src value with qs
-            var imgName = img.attr('src').split('?')[0];
-            var newsrc = imgName + '?' + 'contrast=' + value;            
-            // reset src attribute on the image
-            img.attr('src', newsrc);
-        }
-    }
-    
-    function HandleGammaClick(e) {
-        // collect value for filter from textbox
-        var value = $('#txtGamma').val();    	
-        var img = $('#srcImage');        
-        if (parseInt(value)=="Nan") { 
-            return false;
-        }
-        else {
-            // build new image src value with qs
-            var imgName = img.attr('src').split('?')[0];
-            var newsrc = imgName + '?' + 'gamma=' + value;            
-            // reset src attribute on the image
-            img.attr('src', newsrc);
-        }
-    }
-    
-    $(function() {
-    	$('#txtValue').focus();
+    <script src="res/jquery-ui-1.7.core.slider.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">    
+    function RefreshGammaFilter(evt) {
+    	var val = $('#gamma-slider').slider("value");
+    	val = val/10;	// adjust scale
+    	console.debug('gamma-slider: ' + val);
+    	var img = $('#srcImage');
+    	var imgName = img.attr('src').split('?')[0];
+    	var newsrc = imgName + '?' + 'contrast=' + val;        
     	
-    	$('#apply-filter').click(HandleFilterClick);
-    	$('#apply-gamma').click(HandleGammaClick);
+        img.attr('src', newsrc);        
+    }
+    
+    function ContrastSlideHandler(evt, ui) {
+    	var val = $('#contrast-slider').slider("value");
+    	val = val - 100;	// adjust scale
+    	console.debug('contrast-slider: ' + val);
+    	var img = $('#srcImage');
+    	var imgName = img.attr('src').split('?')[0];
+    	var newsrc = imgName + '?' + 'contrast=' + val;            	
+        img.attr('src', newsrc);
+    }
+    
+    // document.ready handler
+    $(function() {
     	$('.reset-image').click(function(e){
     		var img = $('#srcImage');
     		img.attr('src', 'res/Kitten600.jpg');
     	});
+    	$('#gamma-slider').slider(gammaSliderOptions);
+    	$('#contrast-slider').slider(contrastSliderOptions);    	
     });
+    
+	var gammaSliderOptions = {
+		max 	: 	50,
+		min 	: 	2,
+		step 	: 	1,
+		value 	: 	26,
+		orientation : "horizontal",
+		change 	: 	RefreshGammaFilter		
+	};
+	
+	var contrastSliderOptions = {
+		max 	: 	200,
+		min 	: 	0,
+		step 	: 	5,
+		value 	: 	100,
+		orientation : "horizontal",
+		change 	: 	ContrastSlideHandler		
+	};
+    
     </script>
+    <link rel="stylesheet" href="res/jquery-ui.css" type="text/css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="res/style.css" type="text/css" media="screen" charset="utf-8"></link>
 </head>
 <body>
@@ -66,8 +75,8 @@ the image will be reloaded with the contrast value applied.</p>
 <form>
 	<fieldset style="width: 350px;">
 		<legend>Gamma Filter</legend>
-		<label for="txtValue">Enter value for Gamma:</label>
-		<input type="text" id="txtGamma" name="txtGamma" /><br /><br />
+		<label for="gamma-slider">Select value for Gamma:</label>
+		<div id="gamma-slider" class="slider"></div>
 		<div class="centered">
 			<input type="button" value="Apply Filter" id="apply-gamma" name="apply-gamma" />&nbsp;
 			<input type="button" value="Reset Image" class="reset-image" name="reset-image" />
@@ -75,8 +84,8 @@ the image will be reloaded with the contrast value applied.</p>
 	</fieldset>
 	<fieldset style="width: 350px;">
 		<legend>Contrast Filter</legend>
-		<label for="txtValue">Enter value for Contrast:</label>
-		<input type="text" id="txtValue" name="txtValue" /><br /><br />
+		<label for="contrast-slider">Select value for Contrast:</label>
+		<div id="contrast-slider" class="slider"></div>
 		<div class="centered">
 			<input type="button" value="Apply Filter" id="apply-filter" name="apply-filter" />&nbsp;
 			<input type="button" value="Reset Image" class="reset-image" name="reset-image2" />
