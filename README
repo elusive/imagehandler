@@ -35,3 +35,4 @@
 		of sbyte as the filter value parameter on filter methods.
 0.3		Added slider controls [jquery] to control contrast and gamma filters on
 		the demo image/page.
+0.4   Added a brightness slider and filter to the demo page.

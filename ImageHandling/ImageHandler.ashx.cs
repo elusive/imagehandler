@@ -67,6 +67,11 @@ namespace ImageHandling
                     if (f.Apply(_bitmap, filterVal))
                         _bitmap = f.GetResult();
                     break;
+                case "brightness":
+                    f = new Imaging.Filters.BrightnessFilter();
+                    if (f.Apply(_bitmap, filterVal))
+                        _bitmap = f.GetResult();
+                    break;
                 default:
                     break;
             }

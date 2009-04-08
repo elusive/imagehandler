@@ -7,6 +7,19 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="res/jquery-ui-1.7.core.slider.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">    
+    
+    function BrightnessSliderChangeHandler(evt, ui) {
+      var val = $('#brightness-slider').slider("value");
+      val = val - 255;
+      if ('undefined' != typeof(console)) {
+        console.debug('brightness-slider: ' + val);        
+      }
+      var img = $('#srcImage');
+      var imgName = img.attr('src').split('?')[0];
+      var newsrc = imgName + '?' + 'brightness=' + val;
+      img.attr('src', newsrc);
+    }
+    
     function RefreshGammaFilter(evt) {
     	var val = $('#gamma-slider').slider("value");
     	val = val/10;	// adjust scale
@@ -40,25 +53,35 @@
     	$('.reset-image').click(ResetImage);
     	$('#gamma-slider').slider(gammaSliderOptions);
     	$('#contrast-slider').slider(contrastSliderOptions);    	
+    	$('#brightness-slider').slider(brightnessSliderOptions);
     });
     
-	var gammaSliderOptions = {
-		max 	: 	50,
-		min 	: 	2,
-		step 	: 	1,
-		value 	: 	2,
-		orientation : "horizontal",
-		change 	: 	RefreshGammaFilter		
-	};
-	
-	var contrastSliderOptions = {
-		max 	: 	100,
-		min 	: 	0,
-		step 	: 	5,
-		value 	: 	50,
-		orientation : "horizontal",
-		change 	: 	ContrastSlideHandler		
-	};
+    var brightnessSliderOptions = {
+  		max 	: 	510,
+  		min 	: 	0,
+  		step 	: 	5,
+  		value 	: 	255,
+  		orientation : "horizontal",
+  		change 	: BrightnessSliderChangeHandler			
+  	};
+      
+  	var gammaSliderOptions = {
+  		max 	: 	50,
+  		min 	: 	2,
+  		step 	: 	1,
+  		value 	: 	2,
+  		orientation : "horizontal",
+  		change 	: 	RefreshGammaFilter		
+  	};
+  	
+  	var contrastSliderOptions = {
+  		max 	: 	100,
+  		min 	: 	0,
+  		step 	: 	5,
+  		value 	: 	50,
+  		orientation : "horizontal",
+  		change 	: 	ContrastSlideHandler		
+  	};
     
     </script>
     <link rel="stylesheet" href="res/jquery-ui.css" type="text/css" media="screen" title="no title" charset="utf-8">
@@ -77,6 +100,14 @@ the image will be reloaded with the contrast value applied.</p>
 		Picture of a kitten for contrast filter testing.</p>
 </div>
 <form>
+  <fieldset style="width: 350px;">
+		<legend>Brightness Filter</legend>
+		<label for="brightness-slider">Select value for Brightness:</label>
+		<div id="brightness-slider" class="slider"></div>
+		<div class="centered">
+			<input type="button" value="Reset Image" class="reset-image" name="reset-image3" />
+		</div>
+	</fieldset>		
 	<fieldset style="width: 350px;">
 		<legend>Gamma Filter</legend>
 		<label for="gamma-slider">Select value for Gamma:</label>
@@ -92,7 +123,7 @@ the image will be reloaded with the contrast value applied.</p>
 		<div class="centered">
 			<input type="button" value="Reset Image" class="reset-image" name="reset-image2" />
 		</div>
-	</fieldset>				
+	</fieldset>	
 </form>
 
 </body>
