@@ -10,7 +10,8 @@
     function RefreshGammaFilter(evt) {
     	var val = $('#gamma-slider').slider("value");
     	val = val/10;	// adjust scale
-    	console.debug('gamma-slider: ' + val);
+    	if ('undefined' != typeof(console))
+    		console.debug('gamma-slider: ' + val);
     	var img = $('#srcImage');
     	var imgName = img.attr('src').split('?')[0];
     	var newsrc = imgName + '?' + 'contrast=' + val;        
@@ -20,20 +21,23 @@
     
     function ContrastSlideHandler(evt, ui) {
     	var val = $('#contrast-slider').slider("value");
-    	val = val - 100;	// adjust scale
-    	console.debug('contrast-slider: ' + val);
+    	val = val - 50;	// adjust scale
+    	if ('undefined' != typeof(console))
+    		console.debug('contrast-slider: ' + val);
     	var img = $('#srcImage');
     	var imgName = img.attr('src').split('?')[0];
     	var newsrc = imgName + '?' + 'contrast=' + val;            	
         img.attr('src', newsrc);
     }
     
+    function ResetImage(evt) {
+    	var img = $('#srcImage');
+    	img.attr('src', 'res/Kitten600.jpg');
+    };
+    
     // document.ready handler
     $(function() {
-    	$('.reset-image').click(function(e){
-    		var img = $('#srcImage');
-    		img.attr('src', 'res/Kitten600.jpg');
-    	});
+    	$('.reset-image').click(ResetImage);
     	$('#gamma-slider').slider(gammaSliderOptions);
     	$('#contrast-slider').slider(contrastSliderOptions);    	
     });
@@ -42,16 +46,16 @@
 		max 	: 	50,
 		min 	: 	2,
 		step 	: 	1,
-		value 	: 	26,
+		value 	: 	2,
 		orientation : "horizontal",
 		change 	: 	RefreshGammaFilter		
 	};
 	
 	var contrastSliderOptions = {
-		max 	: 	200,
+		max 	: 	100,
 		min 	: 	0,
 		step 	: 	5,
-		value 	: 	100,
+		value 	: 	50,
 		orientation : "horizontal",
 		change 	: 	ContrastSlideHandler		
 	};
@@ -78,7 +82,6 @@ the image will be reloaded with the contrast value applied.</p>
 		<label for="gamma-slider">Select value for Gamma:</label>
 		<div id="gamma-slider" class="slider"></div>
 		<div class="centered">
-			<input type="button" value="Apply Filter" id="apply-gamma" name="apply-gamma" />&nbsp;
 			<input type="button" value="Reset Image" class="reset-image" name="reset-image" />
 		</div>
 	</fieldset>
@@ -87,7 +90,6 @@ the image will be reloaded with the contrast value applied.</p>
 		<label for="contrast-slider">Select value for Contrast:</label>
 		<div id="contrast-slider" class="slider"></div>
 		<div class="centered">
-			<input type="button" value="Apply Filter" id="apply-filter" name="apply-filter" />&nbsp;
 			<input type="button" value="Reset Image" class="reset-image" name="reset-image2" />
 		</div>
 	</fieldset>				
